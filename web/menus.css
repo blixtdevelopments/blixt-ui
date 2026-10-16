@@ -1,0 +1,307 @@
+/* Shared menu engine. Each theme supplies its own visual identity. */
+#menu-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
+.blixt-menu-frame {
+  position: absolute; width: min(370px, 90vw); max-height: 76vh;
+  display: flex; flex-direction: column; overflow: hidden;
+  pointer-events: auto; animation: arrive .15s ease-out;
+}
+.blixt-context-frame { right: 18%; top: 14%; }
+.blixt-list-frame { top: 4%; left: 2%; }
+.blixt-list-frame[data-position="top-right"] { left: auto; right: 2%; }
+.blixt-list-frame[data-position="bottom-left"] { top: auto; bottom: 4%; }
+.blixt-list-frame[data-position="bottom-right"] { top: auto; left: auto; bottom: 4%; right: 2%; }
+.blixt-menu-header { display: flex; align-items: center; flex: none; min-height: 37px; gap: 7px; }
+.blixt-menu-title { flex: 1; min-width: 0; overflow-wrap: anywhere; font-weight: 700; }
+.blixt-menu-back, .blixt-menu-close {
+  font: inherit; flex: none; cursor: pointer; padding: 0; width: 24px; height: 24px;
+}
+.blixt-menu-items { min-height: 0; overflow-y: auto; scrollbar-width: thin; overscroll-behavior: contain; }
+.blixt-option {
+  font: inherit; text-align: left; width: 100%; display: block;
+  color: inherit; cursor: pointer; position: relative;
+  border: 0; appearance: none; outline-offset: -2px;
+}
+.blixt-option:disabled { opacity: .46; cursor: not-allowed; }
+.blixt-option.read-only { cursor: default; }
+.blixt-option-row { display: flex; align-items: center; gap: 10px; width: 100%; }
+.blixt-option-copy { flex: 1; min-width: 0; }
+.blixt-option-name { overflow-wrap: anywhere; }
+.blixt-option-description { font-size: .83em; line-height: 1.35; margin-top: 4px; overflow-wrap: anywhere; }
+.blixt-option-chevron { font-size: 25px; line-height: 1; opacity: .85; }
+.blixt-option-icon { width: 26px; min-width: 26px; text-align: center; font-size: 18px; }
+.blixt-option-icon img { max-width: 25px; max-height: 25px; object-fit: contain; }
+.blixt-option-gauge { height: 5px; margin-top: 8px; overflow: hidden; background: rgba(127,127,127,.28); }
+.blixt-option-fill { display: block; height: 100%; width: 0; background: var(--menu-accent, #3b95fa); }
+.blixt-option-details { display: none; padding: 8px 0 2px; font-size: 11px; opacity: .86; white-space: pre-line; }
+.blixt-option-details img { margin-top: 5px; max-height: 120px; max-width: 100%; object-fit: contain; }
+.blixt-option:hover .blixt-option-details, .blixt-option:focus-visible .blixt-option-details { display: block; }
+.blixt-list-option { display: flex; gap: 10px; align-items: center; cursor: default; }
+.blixt-list-side { display: flex; justify-content: space-between; gap: 8px; margin-top: 3px; }
+.blixt-list-arrows { white-space: nowrap; letter-spacing: 2px; }
+.blixt-list-checkbox { order: 3; width: 20px; height: 20px; text-align: center; flex: none; }
+.blixt-list-footer { flex: none; font-size: 10px; text-align: center; opacity: .7; padding: 8px 4px 0; }
+
+/* Paper Trail: manila folder with a ruled paper insert. */
+body[data-theme="80s"] .blixt-menu-frame {
+  --menu-accent: #a25f43;
+  background: linear-gradient(180deg, #f5e5b7, #eddbab);
+  border: 1px solid #a48e62; border-radius: 2px;
+  padding: 0 15px 14px 25px;
+  color: #3b2e1d; font-family: Georgia, 'Times New Roman', serif;
+  box-shadow: 4px 8px 15px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.48);
+  transform: rotate(-.3deg);
+}
+body[data-theme="80s"] .blixt-menu-frame::before {
+  content: ''; position: absolute; top: 39px; left: 17px; bottom: 14px;
+  width: 1px; background: rgba(190,73,65,.38); pointer-events: none;
+}
+body[data-theme="80s"] .blixt-menu-header {
+  margin: 0 -3px 6px -13px; padding: 9px 7px 8px;
+  border-bottom: 1px solid #b7a077;
+}
+body[data-theme="80s"] .blixt-menu-title { font-size: 17px; text-transform: uppercase; letter-spacing: .025em; }
+body[data-theme="80s"] .blixt-menu-back,
+body[data-theme="80s"] .blixt-menu-close {
+  background: #e5d09e; border: 1px solid #ae996f; border-radius: 0; color: #5f492f;
+}
+body[data-theme="80s"] .blixt-menu-items {
+  background: repeating-linear-gradient(to bottom, transparent 0, transparent 39px, rgba(91,123,151,.13) 40px, transparent 41px);
+  scrollbar-color: #bca779 transparent;
+}
+body[data-theme="80s"] .blixt-option { padding: 11px 8px 12px; background: transparent; border-bottom: 1px solid rgba(130,114,84,.24); }
+body[data-theme="80s"] .blixt-option:hover:not(:disabled):not(.read-only),
+body[data-theme="80s"] .blixt-list-option.selected { background: rgba(162,118,65,.13); }
+body[data-theme="80s"] .blixt-option-name { font-size: 14px; font-weight: 700; }
+body[data-theme="80s"] .blixt-option-description { color: #766148; }
+body[data-theme="80s"] .blixt-option-gauge { background: rgba(119,97,72,.22); }
+body[data-theme="80s"] .blixt-list-checkbox { border: 1px solid #8c764f; color: #8f4834; background: #f9ecce; }
+body[data-theme="80s"] .blixt-list-footer { color: #907452; }
+
+/* Desktop 95: system menu with classic bevels, keyboard selection. */
+body[data-theme="90s"] .blixt-menu-frame {
+  --menu-accent: #000080; background: #c0c0c0; color: #151515;
+  border: 1px solid #101010; border-radius: 0; padding: 3px 4px 9px;
+  box-shadow: inset 1px 1px #fff, inset -2px -2px #666, 2px 4px 4px rgba(0,0,0,.22);
+  font: 12px/1.4 Tahoma, 'MS Sans Serif', Verdana, sans-serif;
+}
+body[data-theme="90s"] .blixt-menu-header {
+  background: #000080; color: #fff; min-height: 25px; padding: 2px 4px; margin-bottom: 4px;
+}
+body[data-theme="90s"] .blixt-menu-title { font-weight: 700; font-size: 12px; }
+body[data-theme="90s"] .blixt-menu-back,
+body[data-theme="90s"] .blixt-menu-close {
+  font: 700 16px/17px Tahoma, sans-serif; width: 18px; height: 18px;
+  background: #c0c0c0; border: 1px solid #333;
+  color: #111; box-shadow: inset 1px 1px white, inset -1px -1px #888; border-radius: 0;
+}
+body[data-theme="90s"] .blixt-option { padding: 10px 9px; background: #c0c0c0; border: 0; border-bottom: 1px solid #a6a6a6; }
+body[data-theme="90s"] .blixt-option:hover:not(:disabled):not(.read-only),
+body[data-theme="90s"] .blixt-list-option.selected { background: #000080; color: white; }
+body[data-theme="90s"] .blixt-option-description { color: #525252; }
+body[data-theme="90s"] .blixt-option:hover .blixt-option-description,
+body[data-theme="90s"] .blixt-list-option.selected .blixt-option-description { color: #ddd; }
+body[data-theme="90s"] .blixt-option-name { font-size: 12px; }
+body[data-theme="90s"] .blixt-option-gauge { height: 9px; background: #dadada; border: 1px solid #888; }
+body[data-theme="90s"] .blixt-list-checkbox { border: 1px solid #333; background: #fff; color: #000080; }
+
+/* Symbols follow each theme; they never fall back to generic diamond glyphs. */
+.blixt-option-icon {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  overflow: hidden;
+}
+.blixt-option-icon svg { width: 19px; height: 19px; flex: none; }
+.blixt-option-icon img { max-width: 22px; max-height: 22px; }
+
+/* Paper Trail: small imperfect ink seals on an office sheet. */
+body[data-theme="80s"] .blixt-option-icon {
+  color: #725036;
+  background: rgba(167, 102, 70, .07);
+  border: 1px dashed rgba(119, 73, 50, .42);
+  border-radius: 50%;
+  transform: rotate(-5deg);
+}
+body[data-theme="80s"] .blixt-option-icon svg { width: 18px; height: 18px; stroke-width: 1.7; }
+body[data-theme="80s"] .blixt-option-row { gap: 11px; }
+body[data-theme="80s"] .blixt-menu-header { border-bottom-style: double; border-bottom-width: 3px; }
+
+/* Desktop 95: small square icon buttons with raised Windows edges. */
+body[data-theme="90s"] .blixt-option-icon {
+  width: 27px;
+  min-width: 27px;
+  height: 27px;
+  color: #000080;
+  background: #d4d4d4;
+  border: 1px solid #777;
+  border-radius: 0;
+  box-shadow: inset 1px 1px #fff, inset -1px -1px #888;
+}
+body[data-theme="90s"] .blixt-option-icon svg { width: 19px; height: 19px; stroke-width: 1.9; }
+body[data-theme="90s"] .blixt-option:hover:not(:disabled):not(.read-only) .blixt-option-icon,
+body[data-theme="90s"] .blixt-list-option.selected .blixt-option-icon {
+  color: #000080;
+  background: #ededed;
+}
+
+/* Modern: dark desktop window, quiet chrome and one continuous list. */
+body[data-theme="modern"] .blixt-menu-frame {
+  --menu-accent: #4e9feb;
+  color: #e9edf4;
+  background: #252b34;
+  border: 1px solid rgba(180, 194, 213, .25);
+  border-radius: 13px;
+  padding: 0;
+  box-shadow: 0 16px 38px rgba(0,0,0,.32), inset 0 1px rgba(255,255,255,.09);
+  font: 13px/1.45 'Segoe UI', Arial, Helvetica, sans-serif;
+}
+body[data-theme="modern"] .blixt-menu-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  height: 45px;
+  min-height: 45px;
+  padding: 0 12px;
+  gap: 0;
+  margin: 0;
+  border-bottom: 1px solid rgba(0,0,0,.35);
+  background: linear-gradient(180deg,#3a414c,#333a44);
+  box-shadow: inset 0 1px rgba(255,255,255,.06), 0 1px rgba(255,255,255,.04);
+}
+body[data-theme="modern"] .blixt-menu-title {
+  flex: 1;
+  margin: 0 65px;
+  min-width: 0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -.012em;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #e9edf4;
+}
+.blixt-mac-controls { display: none; }
+body[data-theme="modern"] .blixt-mac-controls {
+  display: flex;
+  position: absolute;
+  left: 14px;
+  top: 0;
+  height: 100%;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+}
+body[data-theme="modern"] .blixt-mac-dot {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  padding: 0;
+  border: 1px solid rgba(0,0,0,.16);
+  box-shadow: inset 0 1px rgba(255,255,255,.24);
+}
+body[data-theme="modern"] .blixt-mac-red { background: #f06a66; }
+body[data-theme="modern"] .blixt-mac-yellow { background: #e4b74f; }
+body[data-theme="modern"] .blixt-mac-green { background: #57bb74; }
+body[data-theme="modern"] button.blixt-mac-red {
+  appearance: none;
+  cursor: pointer;
+}
+body[data-theme="modern"] button.blixt-mac-red:hover { filter: brightness(1.1); }
+body[data-theme="modern"] button.blixt-mac-red:hover::after {
+  content: '×';
+  position: absolute;
+  inset: -3px 0 0;
+  text-align: center;
+  font: bold 12px/16px Arial,sans-serif;
+  color: #5a1b1b;
+}
+body[data-theme="modern"] .blixt-mac-red.inactive { background: #7f8186; opacity: .55; }
+body[data-theme="modern"] .blixt-menu-close { display: none; }
+body[data-theme="modern"] .blixt-menu-back {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  width: 25px;
+  height: 25px;
+  border: 0;
+  padding: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #aeb9c7;
+  font: 25px/21px Arial, sans-serif;
+}
+body[data-theme="modern"] .blixt-menu-back:hover { background: rgba(255,255,255,.10); }
+body[data-theme="modern"] .blixt-menu-items {
+  background: #252b34;
+  padding: 5px 0 7px;
+  scrollbar-color: #535f6c transparent;
+}
+body[data-theme="modern"] .blixt-option {
+  padding: 12px 16px;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(192,203,219,.09);
+  border-radius: 0;
+}
+body[data-theme="modern"] .blixt-option:last-child { border-bottom: 0; }
+body[data-theme="modern"] .blixt-option:hover:not(:disabled):not(.read-only),
+body[data-theme="modern"] .blixt-list-option.selected {
+  background: rgba(68, 139, 222, .18);
+  box-shadow: none;
+}
+body[data-theme="modern"] .blixt-option:focus-visible { outline: 2px solid #4e9feb; outline-offset: -2px; }
+body[data-theme="modern"] .blixt-option-row,
+body[data-theme="modern"] .blixt-list-option { gap: 12px; }
+body[data-theme="modern"] .blixt-option-name {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #f0f3f7;
+}
+body[data-theme="modern"] .blixt-option-description {
+  margin-top: 3px;
+  color: #aeb8c5;
+  font-size: 11px;
+  line-height: 1.45;
+}
+body[data-theme="modern"] .blixt-option:disabled .blixt-option-name { color: #9aa2ae; }
+body[data-theme="modern"] .blixt-option-icon {
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #92b8df;
+}
+body[data-theme="modern"] .blixt-option-icon svg { width: 19px; height: 19px; stroke-width: 1.7; }
+body[data-theme="modern"] .blixt-option-icon img { max-width: 22px; max-height: 22px; }
+body[data-theme="modern"] .blixt-option-chevron { color: #798696; font-size: 22px; }
+body[data-theme="modern"] .blixt-option-gauge { border-radius: 4px; background: rgba(0,0,0,.29); }
+body[data-theme="modern"] .blixt-option-fill { border-radius: inherit; }
+body[data-theme="modern"] .blixt-list-checkbox {
+  border-radius: 4px;
+  border: 1px solid #697586;
+  color: #a9d3fa;
+  background: #1f252d;
+}
+body[data-theme="modern"] .blixt-list-footer {
+  padding: 9px 10px;
+  background: #303741;
+  border-top: 1px solid rgba(255,255,255,.07);
+  color: #b0bac9;
+  opacity: 1;
+}

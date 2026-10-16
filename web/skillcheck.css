@@ -1,0 +1,121 @@
+#skillcheck-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 6.2vh;
+}
+.blixt-skill-panel {
+  position: relative;
+  width: 228px;
+  padding: 10px 13px 13px;
+  color: #f5f7fa;
+  background: #292e37;
+  border: 1px solid #505965;
+  border-radius: 15px;
+  box-shadow: 0 9px 23px rgba(0,0,0,.25);
+  text-align: center;
+  overflow: hidden;
+  animation: arrive .16s ease-out;
+}
+.blixt-skill-header { display: none; }
+.blixt-skill-paper-lines { display: none; }
+.blixt-skill-face { position: relative; width: 184px; height: 184px; margin: 0 auto; }
+.blixt-skill-dial { display: block; width: 100%; height: 100%; }
+.blixt-skill-track,
+.blixt-skill-target { fill: none; stroke-width: 9; }
+.blixt-skill-track { stroke: #525b67; }
+.blixt-skill-target { stroke: #3a9ef5; stroke-linecap: butt; transform-origin: 110px 110px; }
+.blixt-skill-indicator-notch { fill: #f8fafc; }
+.blixt-skill-indicator-dot { fill: #f8fafc; }
+.blixt-skill-key {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 36px; min-height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 3px 9px;
+  border-radius: 9px;
+  background: #3a414d;
+  border: 1px solid rgba(220,232,248,.13);
+  color: #f6f8fc;
+  font: 600 18px/1 'Segoe UI', Arial, sans-serif;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.11);
+}
+
+/* Paper Trail: the same circular check, printed on lined writing paper. */
+body[data-theme="80s"] .blixt-skill-panel {
+  width: 228px;
+  padding: 7px 13px 12px 23px;
+  color: #3d3024;
+  border: 1px solid #b29c72;
+  border-radius: 2px;
+  background:
+    linear-gradient(90deg, transparent 19px, rgba(186,86,71,.39) 20px, transparent 21px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 25px, rgba(83,119,151,.22) 26px, transparent 27px),
+    linear-gradient(180deg, #f8eac5, #ecd9a8);
+  box-shadow: 3px 6px 12px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.38);
+  transform: rotate(-.45deg);
+}
+body[data-theme="80s"] .blixt-skill-face { width: 182px; height: 182px; }
+body[data-theme="80s"] .blixt-skill-track { stroke: #9e927d; stroke-width: 7; }
+body[data-theme="80s"] .blixt-skill-target { stroke: #a64c40; stroke-width: 11; }
+body[data-theme="80s"] .blixt-skill-indicator-notch { fill: #293d56; }
+body[data-theme="80s"] .blixt-skill-indicator-dot { fill: #293d56; }
+body[data-theme="80s"] .blixt-skill-key {
+  min-width: 36px; min-height: 36px;
+  border: 1px solid #9f8560;
+  border-radius: 1px;
+  background: #f0dfb3;
+  color: #293d56;
+  font: 700 20px/1 Georgia, 'Times New Roman', serif;
+  box-shadow: inset 1px 1px rgba(255,255,255,.45);
+}
+
+/* Desktop 95: square system window, same circular timing as ox_lib. */
+body[data-theme="90s"] .blixt-skill-panel {
+  width: 231px;
+  padding: 29px 12px 10px;
+  border: 1px solid #0c0c0c;
+  border-radius: 0;
+  background: #c0c0c0;
+  box-shadow: inset 1px 1px #fff, inset -2px -2px #666, 3px 4px 7px rgba(0,0,0,.17);
+}
+body[data-theme="90s"] .blixt-skill-header {
+  display: block;
+  position: absolute;
+  left: 4px; right: 4px; top: 4px; height: 23px;
+  padding: 3px 7px;
+  background: #000080;
+  color: #fff;
+  text-align: left;
+  font: 700 12px/17px Tahoma, 'MS Sans Serif', Verdana, sans-serif;
+}
+body[data-theme="90s"] .blixt-skill-face { width: 181px; height: 181px; }
+body[data-theme="90s"] .blixt-skill-track { stroke: #929292; stroke-width: 10; }
+body[data-theme="90s"] .blixt-skill-target { stroke: #000080; stroke-width: 11; }
+body[data-theme="90s"] .blixt-skill-indicator-notch { fill: #161616; }
+body[data-theme="90s"] .blixt-skill-indicator-dot { fill: #161616; }
+body[data-theme="90s"] .blixt-skill-key {
+  min-width: 37px; min-height: 35px;
+  background: #c0c0c0;
+  border: 1px solid #626262;
+  border-radius: 0;
+  color: #111;
+  font: 700 18px/1 Tahoma, 'MS Sans Serif', Verdana, sans-serif;
+  box-shadow: inset 2px 2px #fff, inset -2px -2px #767676;
+}
+
+/* Modern Minimal: graphite / blue, no blur or gratuitous gloss. */
+body[data-theme="modern"] .blixt-skill-panel {
+  background:
+    radial-gradient(ellipse 85% 100% at 12% -25%, rgba(162,190,229,.16), transparent 68%),
+    linear-gradient(180deg, #3a404a 0%, #292e37 57%, #242930 100%);
+  border: 1px solid rgba(203,215,233,.16);
+  border-radius: 15px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.16);
+}
+body[data-theme="modern"] .blixt-skill-track { stroke: #4c5662; }
+body[data-theme="modern"] .blixt-skill-target { stroke: #479ff5; }

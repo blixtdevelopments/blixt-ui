@@ -1,0 +1,72 @@
+/* Informational prompts only: no focus, no clicks, no idle timers. */
+#textui-overlay { position: fixed; inset: 0; z-index: 35; pointer-events: none; }
+#textui-overlay:empty { display: none; }
+.blixt-textui {
+  position: absolute;
+  display: flex; align-items: center; gap: 9px;
+  max-width: min(380px, 85vw); min-height: 38px;
+  padding: 9px 12px;
+  overflow-wrap: anywhere;
+  animation: blixt-textui-appear .15s ease-out;
+}
+@keyframes blixt-textui-appear { from { opacity: 0; } to { opacity: 1; } }
+.blixt-textui[data-position="left-center"] { top: 50%; left: 2%; transform: translateY(-50%); }
+.blixt-textui[data-position="right-center"] { top: 50%; right: 2%; transform: translateY(-50%); }
+.blixt-textui[data-position="top-center"] { top: 8%; left: 50%; transform: translateX(-50%); }
+.blixt-textui[data-position="bottom-center"] { bottom: 12%; left: 50%; transform: translateX(-50%); }
+.blixt-textui[data-align-icon="top"] { align-items: flex-start; }
+.blixt-textui-message { white-space: pre-line; font-size: 13px; line-height: 1.5; }
+.blixt-textui-symbol { display: inline-flex; flex: none; }
+.blixt-textui-symbol .blixt-option-icon { width: 24px; min-width: 24px; height: 24px; }
+.blixt-textui-symbol .blixt-option-icon svg { width: 18px; height: 18px; }
+.blixt-textui-key { display: inline-flex; align-items: center; justify-content: center; min-width: 25px; margin: 0 4px 0 0; padding: 2px 5px; white-space: nowrap; font-weight: 700; line-height: 1.3; }
+
+/* Paper Trail: an inked key printed onto a torn notepad slip. */
+body[data-theme="80s"] .blixt-textui {
+  color: #3d3225;
+  background: linear-gradient(90deg, transparent 0 18px, rgba(179,79,62,.43) 19px, transparent 20px),
+    repeating-linear-gradient(180deg, transparent 0 25px, rgba(88,123,150,.16) 26px, transparent 27px),
+    linear-gradient(180deg, #f6e9c3, #eddbaf);
+  border: 1px solid #b4a078; border-radius: 1px;
+  box-shadow: 2px 4px 10px rgba(0,0,0,.2), inset 0 1px rgba(255,255,255,.3);
+  padding: 11px 15px 11px 29px;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+body[data-theme="80s"] .blixt-textui-message { font-size: 14px; }
+body[data-theme="80s"] .blixt-textui-key {
+  color: #6a392e; background: rgba(194,91,71,.09);
+  border: 1px solid rgba(150,76,57,.65); border-radius: 1px;
+  font: 700 13px/1.25 Georgia, serif;
+}
+body[data-theme="80s"] .blixt-textui-symbol .blixt-option-icon { color: #79513b; border: 0; background: none; border-radius: 0; transform: none; }
+
+/* Desktop 95: the same bevels and system font as its menu windows. */
+body[data-theme="90s"] .blixt-textui {
+  background: #c0c0c0; color: #111; border: 1px solid #111; border-radius: 0;
+  box-shadow: inset 1px 1px #fff, inset -1px -1px #666, 2px 3px 3px rgba(0,0,0,.18);
+  padding: 7px 10px; font-family: Tahoma, 'MS Sans Serif', Verdana, sans-serif;
+}
+body[data-theme="90s"] .blixt-textui-message { font-size: 12px; }
+body[data-theme="90s"] .blixt-textui-key {
+  color: #111; background: #dadada; border: 1px solid #444; border-radius: 0;
+  box-shadow: inset 1px 1px white, inset -1px -1px #888;
+  font: 700 12px/1.3 Tahoma, sans-serif;
+}
+body[data-theme="90s"] .blixt-textui-symbol .blixt-option-icon { color: #000080; border-radius: 0; }
+
+/* Modern: compact mac-style hint in notification graphite, using blue only for the key. */
+body[data-theme="modern"] .blixt-textui {
+  color: #edf2f8;
+  background: radial-gradient(ellipse 90% 100% at 12% -25%, rgba(162,190,229,.12), transparent 68%),
+    linear-gradient(180deg, #3a404a, #252b34);
+  border: 1px solid rgba(203,215,233,.18); border-radius: 11px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.23), inset 0 1px rgba(255,255,255,.1);
+  font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+}
+body[data-theme="modern"] .blixt-textui-message { font-size: 13px; font-weight: 500; }
+body[data-theme="modern"] .blixt-textui-key {
+  color: #d6eaff; background: rgba(70,145,232,.19); border: 1px solid rgba(107,173,244,.35);
+  border-radius: 5px; box-shadow: inset 0 1px rgba(255,255,255,.08);
+  font: 600 12px/1.3 'Segoe UI', Arial, sans-serif;
+}
+body[data-theme="modern"] .blixt-textui-symbol .blixt-option-icon { color: #8dbdeb; border: 0; background: none; box-shadow: none; }

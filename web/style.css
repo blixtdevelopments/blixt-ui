@@ -1,0 +1,445 @@
+* { box-sizing: border-box; }
+:root { font-family: Arial, Helvetica, sans-serif; }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: transparent; }
+#notifications { pointer-events: none; position: fixed; inset: 0; }
+.zone { position: absolute; display: flex; flex-direction: column; gap: 10px; width: min(330px, 85vw); }
+.zone[data-position="top-left"] { top: 3%; left: 2%; }
+.zone[data-position="top-right"] { top: 3%; right: 2%; }
+.zone[data-position="bottom-left"] { bottom: 3%; left: 2%; flex-direction: column-reverse; }
+.zone[data-position="bottom-right"] { bottom: 3%; right: 2%; flex-direction: column-reverse; }
+.zone[data-position="top"] { top: 3%; left: 50%; transform: translateX(-50%); }
+.zone[data-position="bottom"] { bottom: 3%; left: 50%; transform: translateX(-50%); flex-direction: column-reverse; }
+.zone[data-position="center-left"] { top: 50%; left: 2%; transform: translateY(-50%); }
+.zone[data-position="center-right"] { top: 50%; right: 2%; transform: translateY(-50%); }
+.notice { position: relative; overflow: hidden; color: #eaf0f8; background: #1c212a; border: 1px solid #333b4a; border-radius: 8px; padding: 12px 14px 15px; box-shadow: 0 6px 18px rgba(0,0,0,.22); animation: arrive .18s ease-out; }
+.notice-title { font-size: 14px; font-weight: 700; line-height: 1.4; overflow-wrap: anywhere; }
+.notice-body { font-size: 13px; line-height: 1.4; margin-top: 3px; color: #c6cfda; overflow-wrap: anywhere; white-space: pre-line; }
+.notice[data-type="success"] { --accent: #36bd87; }
+.notice[data-type="error"] { --accent: #ef6565; }
+.notice[data-type="warning"] { --accent: #e4ac4e; }
+.notice[data-type="info"] { --accent: #4ba7f8; }
+.notice::before { content: ''; position: absolute; width: 3px; left: 0; top: 0; bottom: 0; background: var(--accent); }
+.notice-bar { position: absolute; height: 2px; bottom: 0; left: 0; width: 100%; background: var(--accent); transform-origin: left; animation: drain var(--duration) linear forwards; }
+.notice[data-show-duration="false"] .notice-bar { display: none; }
+@keyframes arrive { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes drain { to { transform: scaleX(0); } }
+
+/* 80s Paper Trail: physical memo card, warmer and more obviously paper-like. */
+body[data-theme="80s"] .notice {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,0) 24%),
+    linear-gradient(180deg, #f3e4b7 0%, #ecdbab 100%);
+  color: #352a1c;
+  border: 1px solid #b7a078;
+  border-radius: 1px;
+  padding: 14px 16px 16px;
+  box-shadow: 0 1px 0 rgba(255,255,255,.28) inset, 3px 5px 10px rgba(0,0,0,.18);
+  font-family: Georgia, 'Times New Roman', serif;
+  transform: rotate(-.35deg);
+}
+body[data-theme="80s"] .notice-title {
+  text-transform: uppercase;
+  font-size: 15px;
+  letter-spacing: .035em;
+  border-bottom: 1px solid #a38b60;
+  padding-bottom: 6px;
+  margin-right: 58px;
+}
+body[data-theme="80s"] .notice-body {
+  color: #473a29;
+  margin-top: 7px;
+}
+body[data-theme="80s"] .notice::before {
+  width: 0;
+}
+body[data-theme="80s"] .notice::after {
+  content: 'MEMO';
+  position: absolute;
+  top: 10px;
+  right: 11px;
+  padding: 2px 7px 1px;
+  border: 1px solid #b7a078;
+  background: rgba(255, 249, 225, .62);
+  font: 700 9px/1 Georgia, serif;
+  letter-spacing: .08em;
+  color: #927853;
+}
+body[data-theme="80s"] .notice-bar {
+  height: 3px;
+  background: linear-gradient(90deg, #86a9d7, #5b85c0);
+}
+
+/* 90s Desktop 95: authentic title bar and simpler duration strip. */
+body[data-theme="90s"] .notice {
+  background: #c0c0c0;
+  color: #101010;
+  border-radius: 0;
+  border: 1px solid #000;
+  padding: 30px 10px 12px;
+  box-shadow: inset 1px 1px #fff, inset -1px -1px #808080, inset 2px 2px #dfdfdf, inset -2px -2px #404040;
+  font-family: Tahoma, 'MS Sans Serif', Verdana, sans-serif;
+}
+body[data-theme="90s"] .notice::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  width: auto;
+  height: 19px;
+  bottom: auto;
+  background: linear-gradient(90deg, #0b238f 0%, #0a0d6a 100%);
+}
+body[data-theme="90s"] .notice-title {
+  position: absolute;
+  top: 6px;
+  left: 10px;
+  right: 10px;
+  z-index: 1;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body[data-theme="90s"] .notice-body {
+  color: #101010;
+  font-family: Tahoma, 'MS Sans Serif', Verdana, sans-serif;
+  font-size: 12px;
+  line-height: 1.35;
+  margin-top: 0;
+}
+body[data-theme="90s"] .notice-bar {
+  height: 2px;
+  left: 3px;
+  bottom: 3px;
+  width: calc(100% - 6px);
+  background: #000080;
+}
+
+/* Modern Minimal: dark, restrained OS notification with satin gloss. */
+body[data-theme="modern"] .notice {
+  background:
+    radial-gradient(ellipse 85% 100% at 12% -25%, rgba(162, 190, 229, .16), transparent 68%),
+    linear-gradient(180deg, #3a404a 0%, #292e37 57%, #242930 100%);
+  color: #f6f8fb;
+  border: 1px solid rgba(203, 215, 233, .16);
+  border-radius: 15px;
+  padding: 13px 16px 15px;
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, .24),
+    inset 0 1px 0 rgba(255, 255, 255, .16),
+    inset 0 -1px 0 rgba(0, 0, 0, .12);
+  font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+}
+body[data-theme="modern"] .notice::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: 16px;
+  left: 16px;
+  right: auto;
+  bottom: auto;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #bbdeff 0%, #6bb9ff 29%, #2586ec 78%);
+  box-shadow: 0 0 0 2px rgba(88, 167, 252, .13);
+}
+body[data-theme="modern"] .notice::after { content: none; }
+body[data-theme="modern"] .notice-title {
+  padding-left: 21px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -.01em;
+  color: #f6f8fc;
+}
+body[data-theme="modern"] .notice-body {
+  padding-left: 21px;
+  margin-top: 3px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #d3d9e2;
+}
+body[data-theme="modern"] .notice-bar {
+  left: 16px;
+  bottom: 8px;
+  width: calc(100% - 32px);
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #70bdff, #348eec);
+  box-shadow: none;
+}
+
+/* Progress UI is isolated from the notification styles. */
+#progress-overlay { position: fixed; inset: 0; pointer-events: none; }
+.progress-panel {
+  position: absolute;
+  left: 50%; bottom: 6.2%;
+  transform: translateX(-50%);
+  width: min(350px, 85vw);
+  pointer-events: none;
+  animation: blixt-progress-appear .16s ease-out;
+}
+@keyframes blixt-progress-appear { from { opacity: 0; } to { opacity: 1; } }
+.progress-panel[data-position="middle"] { bottom: auto; top: 50%; transform: translate(-50%, -50%); }
+.progress-paper, .progress-windows, .progress-modern { display: none; }
+
+/* Paper Trail — progress IS the handwriting; there is no conventional bar. */
+body[data-theme="80s"] .progress-paper {
+  display: block;
+  min-height: 104px;
+  padding: 10px 16px 14px 34px;
+  color: #332b20;
+  background:
+    linear-gradient(90deg, transparent 24px, rgba(186,86,71,.46) 25px, transparent 26px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 25px, rgba(83,119,151,.25) 26px, transparent 27px),
+    linear-gradient(180deg, #f8eac5, #ecd9a8);
+  border: 1px solid #b29c72;
+  border-radius: 2px;
+  box-shadow: 3px 6px 12px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.38);
+  transform: rotate(-.6deg);
+}
+body[data-theme="80s"] .paper-heading {
+  display: flex;
+  justify-content: space-between;
+  color: #8e7858;
+  font: 700 9px/14px Georgia, serif;
+  letter-spacing: .12em;
+}
+body[data-theme="80s"] .paper-heading span { letter-spacing: .07em; }
+body[data-theme="80s"] .paper-text {
+  margin-top: 4px;
+  min-height: 45px;
+  padding-top: 5px;
+  font: 23px/1.4 'Segoe Script', 'Lucida Handwriting', cursive;
+  color: #273b57;
+  overflow-wrap: anywhere;
+}
+body[data-theme="80s"] .paper-pen {
+  display: inline-block;
+  width: 1px; height: 22px;
+  margin-left: 2px;
+  vertical-align: -3px;
+  background: #273b57;
+  opacity: .65;
+}
+body[data-theme="80s"] .paper-footer {
+  margin-top: 8px;
+  text-align: right;
+  font: 700 9px/1 Georgia, serif;
+  letter-spacing: .08em;
+  color: #a18a67;
+}
+
+/* Desktop 95 — actual segmented blocks fill left to right. */
+body[data-theme="90s"] .progress-windows {
+  display: block;
+  background: #c0c0c0;
+  padding: 3px 4px 11px;
+  border: 1px solid #101010;
+  border-radius: 0;
+  box-shadow: inset 1px 1px #fff, inset -2px -2px #656565, 2px 3px 2px rgba(0,0,0,.18);
+  color: #111;
+  font: 12px/1.35 Tahoma, 'MS Sans Serif', Verdana, sans-serif;
+}
+body[data-theme="90s"] .windows-title {
+  position: relative;
+  height: 22px;
+  padding: 3px 5px;
+  color: #fff;
+  background: #000080;
+  font: 700 12px/16px Tahoma, 'MS Sans Serif', Verdana, sans-serif;
+}
+body[data-theme="90s"] .windows-close {
+  position: absolute;
+  right: 3px; top: 3px;
+  width: 16px; height: 16px;
+  background: #c0c0c0;
+  border: 1px solid #505050;
+  box-shadow: inset 1px 1px #fff;
+  color: #000;
+  font: 700 14px/13px Tahoma, sans-serif;
+  text-align: center;
+}
+body[data-theme="90s"] .windows-task { margin: 10px 8px 8px; overflow-wrap: anywhere; }
+body[data-theme="90s"] .windows-row { display: flex; align-items: center; gap: 8px; margin: 0 8px; }
+body[data-theme="90s"] .windows-segments {
+  display: flex; gap: 2px; align-items: stretch;
+  flex: 1; height: 19px; padding: 2px;
+  background: #d2d2d2;
+  border: 1px solid #808080;
+  box-shadow: inset 1px 1px #777, 1px 1px #fff;
+}
+body[data-theme="90s"] .windows-block { flex: 1; min-width: 0; background: transparent; }
+body[data-theme="90s"] .windows-block.filled { background: #000080; }
+body[data-theme="90s"] .windows-pct { min-width: 35px; text-align: right; font-size: 11px; }
+
+/* Modern — slim blue loading line in the same graphite styling as notifications. */
+body[data-theme="modern"] .progress-modern {
+  display: block;
+  padding: 13px 17px 17px;
+  background:
+    radial-gradient(ellipse 85% 100% at 12% -25%, rgba(162,190,229,.13), transparent 68%),
+    linear-gradient(180deg, #3a404a, #242930);
+  border: 1px solid rgba(203,215,233,.16);
+  border-radius: 15px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.13);
+  color: #f6f8fc;
+  font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+}
+body[data-theme="modern"] .modern-task {
+  margin-bottom: 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+body[data-theme="modern"] .modern-track {
+  height: 7px;
+  overflow: hidden;
+  background: #171b23;
+  border: 1px solid rgba(207,220,241,.13);
+  border-radius: 999px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.35);
+}
+body[data-theme="modern"] .modern-fill {
+  width: 0; height: 100%;
+  background: linear-gradient(180deg, #8acbff, #318eea);
+  border-radius: inherit;
+}
+
+
+/* Circular progress uses ox_lib's actual duration and always sits at bottom centre. */
+.progress-circle-panel { width: min(318px, 85vw); }
+.circle-paper, .circle-windows, .circle-modern { display: none; }
+
+/* 80s: rubber ink stamp appearing on a piece of ruled notepad paper. */
+body[data-theme="80s"] .circle-paper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 18px 13px 34px;
+  color: #403020;
+  border: 1px solid #b29c72;
+  border-radius: 2px;
+  background:
+    linear-gradient(90deg, transparent 24px, rgba(186,86,71,.46) 25px, transparent 26px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 25px, rgba(83,119,151,.25) 26px, transparent 27px),
+    linear-gradient(180deg, #f8eac5, #ecd9a8);
+  box-shadow: 3px 6px 12px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.38);
+  transform: rotate(-.6deg);
+}
+body[data-theme="80s"] .stamp-face {
+  width: 148px; height: 148px;
+  transform: rotate(-7deg);
+}
+body[data-theme="80s"] .stamp-face svg { width: 100%; height: 100%; overflow: visible; }
+body[data-theme="80s"] .stamp-guide {
+  fill: none; stroke: #99352d; stroke-width: 5; opacity: .11;
+}
+body[data-theme="80s"] .stamp-ring {
+  fill: none;
+  stroke: #923329;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  stroke-linecap: butt;
+  transform: rotate(-90deg);
+  transform-origin: 82px 82px;
+}
+body[data-theme="80s"] .stamp-outer { stroke-width: 6.2; }
+body[data-theme="80s"] .stamp-inner { stroke-width: 2.6; opacity: .75; }
+body[data-theme="80s"] .stamp-head {
+  fill: #903026; font: 700 12px Georgia, serif; letter-spacing: 1.1px;
+  opacity: .25;
+}
+body[data-theme="80s"] .stamp-rule {
+  stroke: #903026; stroke-width: 2.6; opacity: .25;
+}
+body[data-theme="80s"] .stamp-percent {
+  fill: #903026; font: 700 32px Georgia, serif; opacity: .25;
+}
+
+/* 90s: original Windows hourglass and clockwise segmented completion ring. */
+body[data-theme="90s"] .circle-windows {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 3px 4px 13px;
+  border: 1px solid #101010;
+  background: #c0c0c0;
+  box-shadow: inset 1px 1px #fff, inset -2px -2px #656565, 2px 3px 2px rgba(0,0,0,.18);
+  color: #111;
+  font: 12px/1.35 Tahoma, 'MS Sans Serif', Verdana, sans-serif;
+}
+body[data-theme="90s"] .circle-windows .windows-title { align-self: stretch; }
+body[data-theme="90s"] .hourglass-ring { position: relative; width: 148px; height: 140px; margin-top: 4px; }
+body[data-theme="90s"] .hourglass-blocks { position: absolute; inset: 0; }
+body[data-theme="90s"] .hourglass-segment {
+  position: absolute; left: 50%; top: 50%;
+  width: 10px; height: 16px;
+  border: 1px solid #858585;
+  background: #dedede;
+}
+body[data-theme="90s"] .hourglass-segment.filled { background: #000080; border-color: #000080; }
+body[data-theme="90s"] .pixel-hourglass {
+  position: absolute; left: 50%; top: 50%;
+  width: 76px; height: 76px;
+  transform-origin: center;
+  animation: blixt-hourglass-flip 3.2s linear infinite;
+}
+@keyframes blixt-hourglass-flip {
+  0%, 39% { transform: translate(-50%, -50%) rotate(0deg); }
+  48%, 89% { transform: translate(-50%, -50%) rotate(180deg); }
+  98%, 100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-theme="90s"] .pixel-hourglass {
+    animation: none;
+    transform: translate(-50%, -50%);
+  }
+}
+body[data-theme="90s"] .circle-windows-percent { margin-top: -7px; font: 700 13px/1.1 Tahoma, sans-serif; }
+
+/* Modern: minimal iOS-inspired 12-segment indicator in the existing dark Blixt shell. */
+body[data-theme="modern"] .circle-modern {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 12px 16px 17px;
+  color: #f6f8fc;
+  border: 1px solid rgba(203,215,233,.16);
+  border-radius: 15px;
+  background:
+    radial-gradient(ellipse 85% 100% at 12% -25%, rgba(162,190,229,.13), transparent 68%),
+    linear-gradient(180deg, #3a404a, #242930);
+  box-shadow: 0 8px 22px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.13);
+  font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+}
+body[data-theme="modern"] .modern-radial { position: relative; width: 132px; height: 116px; }
+body[data-theme="modern"] .modern-radial-segments { position: absolute; inset: 0; }
+body[data-theme="modern"] .modern-radial-segment {
+  position: absolute; left: 50%; top: 50%;
+  width: 6px; height: 17px;
+  border-radius: 999px;
+  background: #637084;
+  opacity: .45;
+}
+body[data-theme="modern"] .modern-radial-segment.filled {
+  background: linear-gradient(180deg, #8acbff, #318eea);
+  opacity: 1;
+}
+body[data-theme="modern"] .modern-radial-percent {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: #e8f3ff; font: 600 18px/1 'Segoe UI', Arial, sans-serif;
+}
+body[data-theme="modern"] .circle-modern-task {
+  margin-top: 0;
+  max-width: 100%;
+  text-align: center;
+  color: #d3d9e2;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}

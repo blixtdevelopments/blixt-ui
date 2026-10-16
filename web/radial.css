@@ -1,0 +1,141 @@
+/* One wheel geometry and interaction layout shared by all three themes. */
+#radial-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 22; }
+#radial-overlay.open { pointer-events: auto; }
+.blixt-radial-backdrop { position: absolute; inset: 0; background: transparent; }
+.blixt-radial-shell {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: min(500px, 94vw, 84vh); color: #f1f4f9;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  animation: blixt-radial-arrive .13s ease-out;
+}
+@keyframes blixt-radial-arrive {
+  from { opacity: 0; transform: translate(-50%, -48%) scale(.975); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+.blixt-radial-disc { width: 100%; aspect-ratio: 1; position: relative; isolation: isolate; }
+.blixt-radial-svg { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 8px 13px rgba(0,0,0,.23)); }
+.blixt-radial-sector {
+  fill: #2e343d; stroke: #596373; stroke-width: 1.5;
+  cursor: pointer; transition: fill .08s linear; outline: none;
+}
+.blixt-radial-sector.selected, .blixt-radial-sector:hover, .blixt-radial-sector:focus { fill: #425d7a; }
+.blixt-radial-item {
+  position: absolute; width: 108px; min-height: 62px;
+  transform: translate(-50%, -50%); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 4px;
+  text-align: center; pointer-events: none;
+}
+.blixt-radial-item .blixt-option-icon {
+  flex: 0 0 auto; margin: 0; width: 24px; height: 24px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.blixt-radial-item .blixt-option-icon svg, .blixt-radial-item .blixt-option-icon img {
+  display: block; width: 23px; height: 23px; max-width: 23px; max-height: 23px;
+}
+.blixt-radial-label {
+  display: block; width: 100%; max-width: 108px;
+  font-size: 12px; font-weight: 600; line-height: 1.2;
+  color: #eef3fa; overflow-wrap: anywhere;
+  max-height: 48px; overflow: hidden;
+}
+.blixt-radial-item.selected .blixt-radial-label { color: #fff; }
+.blixt-radial-submark {
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  font-size: 17px; line-height: 1;
+}
+.blixt-radial-item.compact { width: 79px; gap: 3px; }
+.blixt-radial-item.compact .blixt-radial-label { max-width: 79px; font-size: 10px; }
+.blixt-radial-item.compact .blixt-option-icon { width: 19px; height: 19px; }
+.blixt-radial-item.compact .blixt-option-icon svg, .blixt-radial-item.compact .blixt-option-icon img { width: 18px; height: 18px; }
+.blixt-radial-item.compact .blixt-radial-submark { right: -4px; font-size: 13px; }
+.blixt-radial-center {
+  position: absolute; left: 50%; top: 50%; width: 116px; height: 116px;
+  transform: translate(-50%, -50%); background: #20252c;
+  border: 2px solid #5e6d80; border-radius: 50%; color: #eef4fa;
+  cursor: pointer; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 1px;
+  z-index: 2;
+}
+.blixt-radial-center-symbol { font-size: 27px; line-height: 27px; }
+.blixt-radial-center-label { font-size: 12px; }
+.blixt-radial-center:hover { background: #3a4f66; }
+
+/* Paper Trail: keep the approved cream wheel; align icons, captions and arrows. */
+body[data-theme="80s"] .blixt-radial-shell { font-family: Georgia, 'Times New Roman', serif; color: #382b1c; }
+body[data-theme="80s"] .blixt-radial-sector { fill: #eee0b7; stroke: #a18d67; stroke-width: 2; }
+body[data-theme="80s"] .blixt-radial-sector:hover,
+body[data-theme="80s"] .blixt-radial-sector.selected { fill: #d5c296; }
+body[data-theme="80s"] .blixt-radial-label { color: #443522; font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
+body[data-theme="80s"] .blixt-radial-item.selected .blixt-radial-label { color: #493019; }
+body[data-theme="80s"] .blixt-radial-item .blixt-option-icon { color: #7c3d34; }
+body[data-theme="80s"] .blixt-radial-center { background: #f4e7c3; color: #7c3d34; border: 3px double #af6c59; }
+body[data-theme="80s"] .blixt-radial-center:hover { background: #e4d3a8; }
+
+/* Desktop 95: an actual free-standing wheel, no oversized application box. */
+body[data-theme="90s"] .blixt-radial-shell {
+  background: transparent; border: 0; padding: 0; box-shadow: none;
+  font-family: Tahoma, 'MS Sans Serif', Verdana, sans-serif; color: #111;
+}
+body[data-theme="90s"] .blixt-radial-disc { width: 100%; margin: 0; }
+body[data-theme="90s"] .blixt-radial-svg { filter: none; }
+body[data-theme="90s"] .blixt-radial-sector { fill: #c0c0c0; stroke: #686868; stroke-width: 2.2; }
+body[data-theme="90s"] .blixt-radial-sector:hover,
+body[data-theme="90s"] .blixt-radial-sector.selected { fill: #000080; }
+body[data-theme="90s"] .blixt-radial-label { color: #111; font-size: 12px; font-weight: 500; }
+body[data-theme="90s"] .blixt-radial-item.selected .blixt-radial-label { color: #fff; }
+body[data-theme="90s"] .blixt-radial-item .blixt-option-icon {
+  color: #000080; border: 1px solid #777;
+  background: #d5d5d5; box-shadow: inset 1px 1px #fff, inset -1px -1px #999;
+  width: 28px; height: 28px;
+}
+body[data-theme="90s"] .blixt-radial-item .blixt-option-icon svg { width: 19px; height: 19px; }
+body[data-theme="90s"] .blixt-radial-item.selected .blixt-option-icon { color: #000080; }
+body[data-theme="90s"] .blixt-radial-center {
+  /* Match the SVG inner rim. */
+  width: 32%; height: 32%;
+  border: 2px solid #666; border-radius: 50%;
+  background: #c0c0c0; color: #111;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.38);
+}
+body[data-theme="90s"] .blixt-radial-center:hover { background: #dedede; }
+body[data-theme="90s"] .blixt-radial-center-symbol { font-size: 23px; }
+
+/* Modern: dark graphite click wheel, modelled on a tactile music-player control. */
+body[data-theme="modern"] .blixt-radial-shell { width: min(465px, 94vw, 80vh); }
+body[data-theme="modern"] .blixt-radial-disc::before {
+  content: ''; position: absolute; inset: 6.2%; z-index: 1;
+  border: 3px solid rgba(191, 210, 236, .29); border-radius: 50%;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.11),
+    0 4px 16px rgba(0,0,0,.23);
+  pointer-events: none;
+}
+body[data-theme="modern"] .blixt-radial-svg { filter: drop-shadow(0 10px 18px rgba(0,0,0,.32)); }
+body[data-theme="modern"] .blixt-radial-sector {
+  fill: url(#blixt-radial-graphite); stroke: #424d5c; stroke-width: .8;
+}
+body[data-theme="modern"] .blixt-radial-sector:hover,
+body[data-theme="modern"] .blixt-radial-sector.selected { fill: #396693; stroke: #6598c2; }
+body[data-theme="modern"] .blixt-radial-item .blixt-option-icon { color: #bdcfe2; width: 27px; height: 27px; }
+body[data-theme="modern"] .blixt-radial-item .blixt-option-icon svg { width: 24px; height: 24px; }
+body[data-theme="modern"] .blixt-radial-item.selected .blixt-option-icon { color: #e4f3ff; }
+body[data-theme="modern"] .blixt-radial-label {
+  font-size: 12px; font-weight: 500; color: #e5eaf1;
+  text-shadow: 0 1px 1px rgba(0,0,0,.33);
+}
+body[data-theme="modern"] .blixt-radial-item.selected .blixt-radial-label { color: #fff; }
+body[data-theme="modern"] .blixt-radial-center {
+  width: 149px; height: 149px;
+  background: linear-gradient(145deg,#525d6d 0%,#36404c 53%,#2b323c 100%);
+  border: 2px solid #8793a5;
+  box-shadow: 0 0 0 3px #252d37, 0 0 0 5px #607084,
+    inset 0 2px 2px rgba(255,255,255,.12), 0 5px 13px rgba(0,0,0,.35);
+  color: #f3f7ff;
+}
+body[data-theme="modern"] .blixt-radial-center:hover { background: linear-gradient(145deg,#526177,#323f50); }
+body[data-theme="modern"] .blixt-radial-center-symbol { font-size: 25px; }
+body[data-theme="modern"] .blixt-radial-center-label { font-weight: 600; font-size: 12px; }
+@media (max-height: 640px) {
+  .blixt-radial-shell { width: min(430px, 94vw, 82vh); }
+  body[data-theme="modern"] .blixt-radial-shell { width: min(405px, 94vw, 82vh); }
+  .blixt-radial-label { font-size: 11px; }
+}

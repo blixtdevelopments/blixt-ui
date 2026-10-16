@@ -1,0 +1,320 @@
+/* Preset-only paint overrides. Original, Classic and Graphite use the existing CSS unchanged. */
+
+/* Paper Trail: preserve Original's paper layers; swap only paper/ink colours. */
+body[data-theme="80s"][data-preset="white"] {
+  --paper-top: #fbfaf5; --paper-bottom: #eeede6; --paper-border: #a9a89c;
+  --paper-text: #30312d; --paper-muted: #66685e; --paper-red: #b4534c;
+  --paper-blue: #486e8f; --paper-button: #eeede5; --paper-hover: #e3e1d5;
+  --paper-rule-red: rgba(180,83,76,.42); --paper-rule-blue: rgba(72,110,143,.22);
+  --paper-menu-rule: rgba(72,110,143,.16);
+  --paper-admin-red: rgba(180,83,76,.35); --paper-admin-blue: rgba(72,110,143,.18);
+  --paper-dialog-red: rgba(180,83,76,.28); --paper-dialog-blue: rgba(72,110,143,.17);
+  --paper-sidebar-left: #e0dfd5; --paper-sidebar-right: #f2f1ea;
+}
+body[data-theme="80s"][data-preset="yellow"] {
+  --paper-top: #dac18c; --paper-bottom: #c7a56b; --paper-border: #8d7048;
+  --paper-text: #3e3020; --paper-muted: #655035; --paper-red: #914b3c;
+  --paper-blue: #45566a; --paper-button: #c7a66d; --paper-hover: #b99359;
+  --paper-rule-red: rgba(145,75,60,.43); --paper-rule-blue: rgba(69,86,106,.29);
+  --paper-menu-rule: rgba(69,86,106,.19);
+  --paper-admin-red: rgba(145,75,60,.40); --paper-admin-blue: rgba(69,86,106,.24);
+  --paper-dialog-red: rgba(145,75,60,.33); --paper-dialog-blue: rgba(69,86,106,.23);
+  --paper-sidebar-left: #af8958; --paper-sidebar-right: #c9a66f;
+}
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.notice,.blixt-menu-frame,.bd-window,.blixt-admin-window) {
+  background: linear-gradient(180deg, var(--paper-top), var(--paper-bottom));
+  border-color: var(--paper-border); color: var(--paper-text);
+}
+/* The memo uses Original's translucent paper sheen, not a flat gradient. */
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .notice {
+  background: linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,0) 24%),
+    linear-gradient(180deg, var(--paper-top), var(--paper-bottom));
+}
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.notice-title,.blixt-menu-header,.bd-header) { border-color: var(--paper-border); color: var(--paper-text); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.notice-body,.blixt-option-description,.bd-field-hint,.blixt-list-footer) { color: var(--paper-muted); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .notice::after { color: var(--paper-muted); border-color: var(--paper-border); background: var(--paper-top); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .notice-bar { background: var(--paper-blue); }
+/* Identical red margin and blue horizontal ruling as Original's progress cards. */
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.progress-paper,.circle-paper) {
+  background: linear-gradient(90deg, transparent 24px, var(--paper-rule-red) 25px, transparent 26px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 25px, var(--paper-rule-blue) 26px, transparent 27px),
+    linear-gradient(180deg, var(--paper-top), var(--paper-bottom));
+  border-color: var(--paper-border); color: var(--paper-text);
+}
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .blixt-textui {
+  background: linear-gradient(90deg, transparent 18px, var(--paper-rule-red) 19px, transparent 20px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 25px, var(--paper-rule-blue) 26px, transparent 27px),
+    linear-gradient(180deg, var(--paper-top), var(--paper-bottom));
+  border-color: var(--paper-border); color: var(--paper-text);
+}
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .blixt-skill-panel {
+  background: linear-gradient(90deg, transparent 19px, var(--paper-rule-red) 20px, transparent 21px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 25px, var(--paper-rule-blue) 26px, transparent 27px),
+    linear-gradient(180deg, var(--paper-top), var(--paper-bottom));
+  border-color: var(--paper-border); color: var(--paper-text);
+}
+/* Dialog body stays transparent so the paper underneath shows through. */
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .bd-body {
+  background: linear-gradient(90deg, transparent 22px, var(--paper-dialog-red) 23px, transparent 24px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 31px, var(--paper-dialog-blue) 32px, transparent 33px);
+}
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .blixt-admin-main {
+  background: linear-gradient(90deg, transparent 20px, var(--paper-admin-red) 21px, transparent 22px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 30px, var(--paper-admin-blue) 31px, transparent 32px),
+    linear-gradient(180deg, var(--paper-top), var(--paper-bottom));
+}
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .blixt-menu-items {
+  background: repeating-linear-gradient(to bottom, transparent 0, transparent 39px, var(--paper-menu-rule) 40px, transparent 41px);
+}
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .blixt-menu-frame::before { background: var(--paper-rule-red); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.paper-text,.paper-pen) { color: var(--paper-blue); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .paper-pen { background: var(--paper-blue); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.paper-footer,.blixt-textui-message,.blixt-radial-label,.blixt-radial-topbar,.blixt-radial-helper) { color: var(--paper-muted); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.stamp-guide,.stamp-ring,.stamp-rule) { stroke: var(--paper-red); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.stamp-head,.stamp-percent) { fill: var(--paper-red); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .blixt-skill-target { stroke: var(--paper-red); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.blixt-skill-indicator-notch,.blixt-skill-indicator-dot) { fill: var(--paper-blue); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.blixt-skill-key,.blixt-list-checkbox,.blixt-menu-back,.blixt-menu-close,.bd-button,.bd-close) {
+  color: var(--paper-text); background: var(--paper-button); border-color: var(--paper-border);
+}
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .bd-control { background: var(--paper-top); color: var(--paper-text); border-color: var(--paper-border); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.bd-window,.blixt-menu-frame) { --bd-accent: var(--paper-red); --menu-accent: var(--paper-red); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.blixt-option-icon,.blixt-textui-symbol .blixt-option-icon,.blixt-radial-item .blixt-option-icon,.blixt-textui-key) { color: var(--paper-red); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .blixt-textui-key { border-color: var(--paper-red); background: rgba(180,83,76,.12); }
+body[data-theme="80s"][data-preset="yellow"] .blixt-textui-key { background: rgba(145,75,60,.12); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .blixt-radial-sector { fill: var(--paper-bottom); stroke: var(--paper-border); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.blixt-radial-sector:hover,.blixt-radial-sector.selected) { fill: var(--paper-hover); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .blixt-radial-center { color: var(--paper-red); background: var(--paper-top); border-color: var(--paper-border); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .blixt-radial-center:hover { background: var(--paper-hover); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .blixt-admin-window {
+  --a-text: var(--paper-text); --a-muted: var(--paper-muted); --a-border: var(--paper-border); --a-hover: var(--paper-hover);
+}
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .blixt-admin-header { background: linear-gradient(180deg,var(--paper-top),var(--paper-bottom)); color: var(--paper-text); border-color: var(--paper-border); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) .blixt-admin-sidebar { background: linear-gradient(90deg,var(--paper-sidebar-left),var(--paper-sidebar-right)); color: var(--paper-text); border-color: var(--paper-border); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.blixt-admin-tab,.blixt-admin-sidebar-label,.blixt-admin-side-note,.blixt-admin-main h2,.blixt-admin-intro) { color: var(--paper-text); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.blixt-admin-tab.selected,.blixt-admin-tab:hover) { background: var(--paper-hover); color: var(--paper-text); box-shadow: inset 3px 0 var(--paper-red); }
+body[data-theme="80s"]:is([data-preset="white"],[data-preset="yellow"]) :is(.blixt-admin-primary,.blixt-admin-close) { background: var(--paper-button); border-color: var(--paper-border); color: var(--paper-text); }
+
+/* 90s Desktop 95: blue/burgundy gradient over cream, or dark high-contrast shell. */
+body[data-theme="90s"][data-preset="gradient"] {
+  --win-base: #ecdfb2; --win-surface: #f8edc8; --win-text: #24281e;
+  --win-title: linear-gradient(90deg,#8f2438 0%,#a53b46 24%,#275174 60%,#09284b 100%);
+  --win-accent: #154971; --win-edge: #aa915b; --win-muted: #67583d;
+  --win-focus: #194d78; --win-focus-text: #fff6df; --win-raised: #eddaa5;
+}
+body[data-theme="90s"][data-preset="midnight"] {
+  --win-base: #29313b; --win-surface: #333d49; --win-text: #eef1f4;
+  --win-title: linear-gradient(90deg,#1b4364 0%,#10283f 100%);
+  --win-accent: #8bb5eb; --win-edge: #596674; --win-muted: #bec8d6;
+  --win-focus: #335d85; --win-focus-text: #fff; --win-raised: #3b4755;
+}
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.notice,.progress-windows,.circle-windows,.blixt-menu-frame,.bd-window,.blixt-textui,.blixt-skill-panel,.blixt-admin-window) {
+  background: var(--win-base); color: var(--win-text); border-color: var(--win-edge);
+}
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) .notice::before,
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.windows-title,.blixt-menu-header,.bd-header,.blixt-skill-header,.blixt-admin-header) {
+  background: var(--win-title); color: #fff;
+}
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.notice-body,.windows-task,.circle-windows-percent,.blixt-option,.blixt-textui-message,.blixt-radial-label) { color: var(--win-text); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.blixt-option,.blixt-menu-items,.bd-actions,.blixt-admin-sidebar,.blixt-admin-main) { background: var(--win-base); color: var(--win-text); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) .notice-bar { background: var(--win-accent); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.windows-close,.blixt-menu-back,.blixt-menu-close,.bd-close,.bd-button,.blixt-skill-key,.blixt-textui-key,.blixt-radial-topbar,.blixt-radial-item .blixt-option-icon,.blixt-admin-close,.blixt-admin-primary) {
+  background: var(--win-raised); color: var(--win-text); border-color: var(--win-edge);
+}
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.blixt-option-description,.blixt-list-footer) { color: var(--win-muted); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.blixt-option:hover:not(:disabled):not(.read-only),.blixt-list-option.selected,.blixt-admin-tab.selected,.blixt-admin-tab:hover) { background: var(--win-focus); color: var(--win-focus-text); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.blixt-option:hover .blixt-option-description,.blixt-list-option.selected .blixt-option-description) { color: var(--win-focus-text); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.windows-block.filled,.hourglass-segment.filled) { background: var(--win-accent); border-color: var(--win-accent); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.windows-segments,.hourglass-segment,.blixt-option-gauge) { background: var(--win-surface); border-color: var(--win-edge); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.blixt-menu-frame,.bd-window) { --menu-accent: var(--win-accent); --bd-accent: var(--win-accent); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) .bd-control { background: var(--win-surface); color: var(--win-text); border-color: var(--win-edge); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.blixt-option-icon,.blixt-textui-symbol .blixt-option-icon,.blixt-radial-item .blixt-option-icon,.blixt-radial-topbar) { color: var(--win-accent); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.blixt-list-checkbox,.blixt-radial-center) { background: var(--win-raised); color: var(--win-text); border-color: var(--win-edge); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) .blixt-radial-center:hover { background: var(--win-surface); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) .blixt-radial-sector { fill: var(--win-base); stroke: var(--win-edge); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.blixt-radial-sector.selected,.blixt-radial-sector:hover) { fill: var(--win-focus); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) .blixt-radial-item.selected .blixt-radial-label { color: var(--win-focus-text); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.blixt-skill-target) { stroke: var(--win-accent); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) .blixt-skill-track { stroke: var(--win-edge); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.blixt-skill-indicator-dot,.blixt-skill-indicator-notch) { fill: var(--win-text); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) .blixt-admin-window { --a-text: var(--win-text); --a-muted: var(--win-muted); --a-border: var(--win-edge); --a-hover: var(--win-surface); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.blixt-admin-tab,.blixt-admin-main h2,.blixt-admin-sidebar-label,.blixt-admin-side-note) { color: var(--win-text); }
+body[data-theme="90s"]:is([data-preset="gradient"],[data-preset="midnight"]) :is(.blixt-admin-test,.blixt-admin-info-row) { color: var(--win-text); border-color: var(--win-edge); }
+body[data-theme="90s"][data-preset="midnight"] .blixt-radial-item.selected .blixt-option-icon { color: var(--win-text); }
+body[data-theme="90s"][data-preset="midnight"] .pixel-hourglass path[fill="#ededed"] { fill: #dce1e9; }
+body[data-theme="90s"][data-preset="gradient"] .pixel-hourglass path[fill="#000080"] { fill: #124870; }
+body[data-theme="90s"][data-preset="midnight"] .pixel-hourglass path[fill="#000080"] { fill: #8bb5eb; }
+
+/* Midnight: keep the brighter hovered icon treatment visible on idle rows. */
+body[data-theme="90s"][data-preset="midnight"] .blixt-menu-frame .blixt-option-icon {
+  color: #000080;
+  background: #ededed;
+}
+
+/* Midnight: solid information symbol, with a clear light glyph. */
+body[data-theme="90s"][data-preset="midnight"] .blixt-textui-info .blixt-option-icon svg circle {
+  fill: #275c90;
+  stroke: #275c90;
+}
+body[data-theme="90s"][data-preset="midnight"] .blixt-textui-info .blixt-option-icon svg path {
+  stroke: #fff;
+}
+
+/* Gradient: admin selection contrast only, not the regular menus. */
+body[data-theme="90s"][data-preset="gradient"] :is(.blixt-admin-test:hover,.blixt-admin-test:focus-visible,.blixt-admin-tab:hover,.blixt-admin-tab.selected) {
+  background: var(--win-focus);
+  color: var(--win-focus-text);
+}
+body[data-theme="90s"][data-preset="gradient"] :is(.blixt-admin-test:hover,.blixt-admin-test:focus-visible) :is(.blixt-admin-test-info strong,.blixt-admin-test-info small,.blixt-admin-test-icon,.blixt-admin-test-arrow) {
+  color: var(--win-focus-text);
+}
+body[data-theme="90s"][data-preset="gradient"] :is(.blixt-admin-tab:hover,.blixt-admin-tab.selected) :is(.blixt-admin-tab-icon,.blixt-admin-tab-icon svg) {
+  color: var(--win-focus-text);
+}
+
+/* Gradient: cream and gold replace the default grey Text UI icon tile. */
+body[data-theme="90s"][data-preset="gradient"] .blixt-textui-symbol .blixt-option-icon {
+  color: var(--win-accent);
+  background: var(--win-surface);
+  border-color: var(--win-edge);
+  box-shadow: inset 1px 1px #fff5d8, inset -1px -1px #b9a36c;
+}
+
+/* Modern: same minimal components with Frost or Midnight Blue palettes. */
+body[data-theme="modern"][data-preset="frost"] {
+  --new-top: #ffffff; --new-bottom: #e9eef5; --new-surface: #f5f8fc;
+  --new-text: #263648; --new-muted: #52667c; --new-border: #b9c8d8;
+  --new-accent: #258cdb; --new-selected: #dceeff; --new-track: #d0dcea;
+}
+body[data-theme="modern"][data-preset="midnight-blue"] {
+  --new-top: #2a486b; --new-bottom: #15283f; --new-surface: #1c304a;
+  --new-text: #edf6ff; --new-muted: #b5cbe1; --new-border: #4f6985;
+  --new-accent: #62b9ff; --new-selected: #315e8a; --new-track: #0d2036;
+}
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.notice,.progress-modern,.circle-modern,.blixt-textui,.blixt-skill-panel) {
+  color: var(--new-text); border-color: var(--new-border);
+  background: linear-gradient(180deg,var(--new-top),var(--new-bottom));
+}
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.blixt-menu-frame,.bd-window,.blixt-admin-window) {
+  background: var(--new-surface); color: var(--new-text); border-color: var(--new-border);
+}
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.blixt-menu-header,.bd-header,.blixt-admin-header) {
+  background: linear-gradient(180deg,var(--new-top),var(--new-bottom)); color: var(--new-text); border-color: var(--new-border);
+}
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.notice-title,.modern-task,.circle-modern-task,.blixt-menu-title,.blixt-option-name,.bd-field-name,.bd-title,.modern-radial-percent) { color: var(--new-text); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.notice-body,.blixt-option-description,.blixt-option-chevron,.blixt-list-footer,.blixt-menu-back) { color: var(--new-muted); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.blixt-menu-items,.bd-actions,.blixt-admin-main,.blixt-admin-sidebar,.blixt-list-footer) { background: var(--new-surface); border-color: var(--new-border); color: var(--new-text); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.modern-track,.blixt-option-gauge) { background: var(--new-track); border-color: var(--new-border); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.modern-fill,.modern-radial-segment.filled,.notice-bar) { background: var(--new-accent); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .notice::before { background: var(--new-accent); box-shadow: 0 0 0 2px var(--new-selected); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .blixt-menu-frame { --menu-accent: var(--new-accent); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .bd-window { --bd-accent: var(--new-accent); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.blixt-option:hover:not(:disabled):not(.read-only),.blixt-list-option.selected) { background: var(--new-selected); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .blixt-option:focus-visible { outline-color: var(--new-accent); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.blixt-option-icon,.blixt-textui-symbol .blixt-option-icon,.blixt-textui-key) { color: var(--new-accent); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.blixt-textui-key,.blixt-list-checkbox,.bd-control,.bd-button,.blixt-skill-key) {
+  color: var(--new-text); background: var(--new-bottom); border-color: var(--new-border);
+}
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .bd-control:focus { border-color: var(--new-accent); outline-color: var(--new-accent); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .bd-primary { color: #fff; background: #287fbd; border-color: var(--new-accent); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) select.bd-control option { background: var(--new-surface); color: var(--new-text); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .blixt-skill-track { stroke: var(--new-border); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.blixt-skill-indicator-notch,.blixt-skill-indicator-dot) { fill: var(--new-text); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .blixt-skill-target { stroke: var(--new-accent); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .blixt-skill-panel .blixt-skill-key { background: var(--new-bottom); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .blixt-radial-sector { fill: var(--new-bottom); stroke: var(--new-border); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.blixt-radial-sector:hover,.blixt-radial-sector.selected) { fill: var(--new-selected); stroke: var(--new-accent); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.blixt-radial-label,.blixt-radial-item.selected .blixt-radial-label,.blixt-radial-item .blixt-option-icon,.blixt-radial-item.selected .blixt-option-icon) { color: var(--new-text); text-shadow: none; }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .blixt-radial-center {
+  color: var(--new-text); background: linear-gradient(145deg,var(--new-top),var(--new-bottom)); border-color: var(--new-border);
+  box-shadow: 0 0 0 3px var(--new-surface), 0 0 0 5px var(--new-border), 0 5px 13px rgba(0,0,0,.22);
+}
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .blixt-radial-center:hover { background: var(--new-selected); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .blixt-radial-disc::before { border-color: var(--new-border); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .blixt-admin-window {
+  --a-text: var(--new-text); --a-muted: var(--new-muted); --a-border: var(--new-border); --a-hover: var(--new-selected);
+}
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) :is(.blixt-admin-tab,.blixt-admin-side-note,.blixt-admin-sidebar-label,.blixt-admin-main h2) { color: var(--new-text); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .blixt-admin-tab.selected { background: var(--new-selected); color: var(--new-text); }
+body[data-theme="modern"]:is([data-preset="frost"],[data-preset="midnight-blue"]) .blixt-admin-primary { background: var(--new-accent); color: #fff; border-color: var(--new-accent); }
+body[data-theme="modern"][data-preset="frost"] .blixt-radial-item.selected .blixt-radial-label { color: #123a61; }
+body[data-theme="modern"][data-preset="frost"] .blixt-radial-item .blixt-option-icon { color: #426d98; }
+
+/* Admin editor controls are deliberately small and theme-neutral in structure. */
+.blixt-editor-label { font-size: 10px; font-weight: 700; letter-spacing: .09em; color: var(--a-muted); margin: 17px 0 9px; }
+.blixt-editor-themes, .blixt-editor-presets { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 9px; }
+.blixt-editor-theme, .blixt-editor-preset { background: transparent; color: var(--a-text); border: 1px solid var(--a-border); padding: 12px 8px; border-radius: 8px; text-align: center; min-width: 0; }
+.blixt-editor-theme { display: flex; flex-direction: column; gap: 3px; align-items: center; }
+.blixt-editor-theme strong, .blixt-editor-preset strong { font-size: 12px; }
+.blixt-editor-theme small { color: var(--a-muted); font-size: 10px; }
+.blixt-editor-theme:hover, .blixt-editor-preset:hover { background: var(--a-hover); }
+.blixt-editor-theme.active, .blixt-editor-preset.active { border: 2px solid #55a8ed; background: var(--a-hover); padding: 11px 7px; }
+.blixt-editor-presets { margin-bottom: 19px; }
+.blixt-editor-preset { display: flex; flex-direction: column; align-items: center; gap: 9px; }
+.blixt-editor-swatches { display: flex; width: 100%; height: 30px; border: 1px solid var(--a-border); overflow: hidden; }
+.blixt-editor-swatch { flex: 1; }
+.blixt-editor-swatches.gradient { background: linear-gradient(90deg,#8f2438,#a53b46,#275174,#09284b); }
+.blixt-editor-swatches.gradient .blixt-editor-swatch:nth-child(n+2) { background: transparent !important; }
+.blixt-editor-swatches.gradient .blixt-editor-swatch:first-child { background: #f0e3b6 !important; }
+.blixt-editor-preview-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.blixt-editor-select { color: var(--a-text); background: transparent; border: 1px solid var(--a-border); padding: 6px 9px; border-radius: 5px; font: inherit; }
+.blixt-editor-select option { color: #15191e; }
+.blixt-editor-sample { min-height: 125px; background: rgba(127,127,127,.09); border: 1px solid var(--a-border); border-radius: 7px; padding: 18px; display: flex; align-items: center; justify-content: center; margin-top: 6px; overflow: hidden; }
+.blixt-editor-sample .notice { width: min(330px,100%); flex: none; }
+.blixt-editor-sample .notice-bar { animation: none; }
+.blixt-editor-sample .bd-window { width: min(370px,100%); max-height: none; flex: none; }
+.blixt-editor-sample .bd-mac-controls { display: none; }
+.blixt-editor-sample .blixt-menu-frame { position: relative; top: auto; left: auto; right: auto; bottom: auto; width: min(350px,100%); max-height: none; flex: none; }
+.blixt-editor-sample .blixt-textui { position: relative; top: auto; bottom: auto; left: auto; right: auto; transform: none; }
+.blixt-editor-sample .bd-actions span { cursor: default; }
+.blixt-editor-footer { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-top: 12px; }
+.blixt-editor-status { font-size: 11px; color: var(--a-muted); }
+.blixt-editor-actions { display: flex; gap: 8px; flex: none; margin-left: auto; }
+.blixt-editor-discard { background: transparent; border: 1px solid var(--a-border); color: var(--a-text); border-radius: 6px; padding: 8px 12px; }
+.blixt-editor-save { margin-top: 0; }
+.blixt-editor-footer button:disabled, .blixt-editor-theme:disabled, .blixt-editor-preset:disabled { opacity: .45; cursor: default; }
+body[data-theme="90s"] :is(.blixt-editor-theme,.blixt-editor-preset,.blixt-editor-discard,.blixt-editor-select,.blixt-editor-sample) { border-radius: 0; }
+body[data-theme="80s"] :is(.blixt-editor-theme,.blixt-editor-preset,.blixt-editor-discard,.blixt-editor-select,.blixt-editor-sample) { border-radius: 1px; }
+@media(max-width:670px) { .blixt-editor-themes,.blixt-editor-presets { gap: 5px; } .blixt-editor-footer { flex-direction: column; align-items: stretch; } .blixt-editor-actions { justify-content: flex-end; } }
+
+/* Paper Trail polish, shared by Original, White Paper and Vintage Yellow. */
+body[data-theme="80s"] :is(.blixt-menu-title, .bd-title, .blixt-admin-caption, .blixt-admin-main h2, .notice-title) {
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* Flat paper surfaces keep text crisp; only the decorative shading is imperfect. */
+body[data-theme="80s"] :is(.notice, .blixt-menu-frame, .bd-window, .progress-paper, .circle-paper, .blixt-skill-panel) {
+  transform: none;
+}
+@keyframes blixt-paper-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+body[data-theme="80s"] :is(.notice, .blixt-menu-frame, .bd-window, .blixt-admin-window, .blixt-skill-panel, .blixt-radial-shell) {
+  animation: blixt-paper-fade .16s ease-out;
+}
+
+/* Ink seals and their glyphs sit upright in each Paper Trail component. */
+body[data-theme="80s"] .blixt-option-icon {
+  transform: none;
+}
+
+/* Align the close glyph inside the existing square buttons. */
+body[data-theme="80s"] :is(.blixt-menu-close, .bd-close, .blixt-admin-close) {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font: 16px/1 Arial, Helvetica, sans-serif;
+}
+body[data-theme="80s"] .blixt-admin-close {
+  top: 11px;
+}
+
+/* Memo typography stays consistent for every notification type. */
+body[data-theme="80s"] .notice-title {
+  font-weight: 700;
+}
+body[data-theme="80s"] .notice-body {
+  font-weight: 400;
+}
